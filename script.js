@@ -58,27 +58,34 @@ upload.addEventListener('change', (e) => {
     }
 });
 
-canvas.addEventListener('mousedown', (e) => {
+canvas.addEventListener('mousedown', startDragging);
+canvas.addEventListener('mousemove', drag);
+canvas.addEventListener('mouseup', stopDragging);
+canvas.addEventListener('touchstart', startDragging, { passive: true });
+canvas.addEventListener('touchmove', drag, { passive: true });
+canvas.addEventListener('touchend', stopDragging);
+
+function startDragging(e) {
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = (e.clientX || e.touches[0].clientX) - rect.left;
+    const y = (e.clientY || e.touches[0].clientY) - rect.top;
     if (x >= overlayX && x <= overlayX + overlayWidth && y >= overlayY && y <= overlayY + overlayHeight) {
         dragging = true;
     }
-});
+}
 
-canvas.addEventListener('mousemove', (e) => {
+function drag(e) {
     if (dragging) {
         const rect = canvas.getBoundingClientRect();
-        overlayX = e.clientX - rect.left - overlayWidth / 2;
-        overlayY = e.clientY - rect.top - overlayHeight / 2;
+        overlayX = (e.clientX || e.touches[0].clientX) - rect.left - overlayWidth / 2;
+        overlayY = (e.clientY || e.touches[0].clientY) - rect.top - overlayHeight / 2;
         draw();
     }
-});
+}
 
-canvas.addEventListener('mouseup', () => {
+function stopDragging() {
     dragging = false;
-});
+}
 
 flipButton.addEventListener('click', () => {
     flipped = !flipped;
