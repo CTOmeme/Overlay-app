@@ -16,7 +16,7 @@ let flipped = false;
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (userImage.src) {
+    if (userImage.complete) {
         const aspectRatio = userImage.width / userImage.height;
         let drawWidth, drawHeight;
         if (aspectRatio > 1) {
@@ -96,6 +96,7 @@ decreaseSizeButton.addEventListener('click', () => {
 });
 
 downloadButton.addEventListener('click', () => {
+    draw(); // Ensure the canvas is fully drawn before downloading
     const dataUrl = canvas.toDataURL('image/png');
     const link = document.createElement('a');
     link.href = dataUrl;
