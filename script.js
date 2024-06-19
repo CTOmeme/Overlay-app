@@ -65,10 +65,15 @@ canvas.addEventListener('touchstart', startDragging, { passive: true });
 canvas.addEventListener('touchmove', drag, { passive: true });
 canvas.addEventListener('touchend', stopDragging);
 
-function startDragging(e) {
+function getCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
     const x = (e.clientX || e.touches[0].clientX) - rect.left;
     const y = (e.clientY || e.touches[0].clientY) - rect.top;
+    return { x, y };
+}
+
+function startDragging(e) {
+    const { x, y } = getCoordinates(e);
     if (x >= overlayX && x <= overlayX + overlayWidth && y >= overlayY && y <= overlayY + overlayHeight) {
         dragging = true;
     }
@@ -76,9 +81,9 @@ function startDragging(e) {
 
 function drag(e) {
     if (dragging) {
-        const rect = canvas.getBoundingClientRect();
-        overlayX = (e.clientX || e.touches[0].clientX) - rect.left - overlayWidth / 2;
-        overlayY = (e.clientY || e.touches[0].clientY) - rect.top - overlayHeight / 2;
+        const { x, y } = getCoordinates(e);
+        overlayX = x - overlayWidth / 2;
+        overlayY = y - overlayHeight / 2;
         draw();
     }
 }
