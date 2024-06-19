@@ -8,6 +8,7 @@ const downloadButton = document.getElementById('download');
 
 let userImage = new Image();
 let overlayImage = new Image();
+overlayImage.crossOrigin = "anonymous"; // Enable CORS for the overlay image
 overlayImage.src = 'https://static.wixstatic.com/media/819c2c_ec88ac72f45445d980fdf060d41dec15~mv2.png';
 let overlayX = 0, overlayY = 0;
 let overlayWidth = 100, overlayHeight = 100;
@@ -16,7 +17,7 @@ let flipped = false;
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (userImage.complete) {
+    if (userImage.src) {
         const aspectRatio = userImage.width / userImage.height;
         let drawWidth, drawHeight;
         if (aspectRatio > 1) {
@@ -45,12 +46,13 @@ upload.addEventListener('change', (e) => {
     if (file) {
         const reader = new FileReader();
         reader.onload = (event) => {
-            userImage.src = event.target.result;
+            userImage = new Image();
             userImage.onload = () => {
                 overlayX = (canvas.width - overlayWidth) / 2;
                 overlayY = (canvas.height - overlayHeight) / 2;
                 draw();
             };
+            userImage.src = event.target.result;
         };
         reader.readAsDataURL(file);
     }
