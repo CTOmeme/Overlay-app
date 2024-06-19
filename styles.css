@@ -1,17 +1,22 @@
 body {
     font-family: 'Impact', sans-serif;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
     font-family: 'Impact', sans-serif;
     color: black;
+    margin-top: 20px;
 }
 
 canvas {
     border: 1px solid black;
     display: block;
     margin: 20px auto;
+    max-width: 100%;
+    height: auto;
 }
 
 button {
@@ -27,4 +32,21 @@ button {
 
 button:hover {
     opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    button {
+        padding: 8px;
+        margin: 3px;
+        font-size: 14px;
+    }
+
+    canvas {
+        width: 90%;
+        height: auto;
+    }
 }
