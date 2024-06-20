@@ -74,9 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startDragging(e) {
-        e.preventDefault(); // Prevent default touch behavior
         const { x, y } = getCoordinates(e);
         if (x >= overlayX && x <= overlayX + overlayWidth && y >= overlayY && y <= overlayY + overlayHeight) {
+            e.preventDefault(); // Prevent default touch behavior
             dragging = true;
         }
     }
