@@ -3,6 +3,14 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    overflow: hidden; /* Prevents parent styles from affecting the embedded content */
+}
+
+#app-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 h1 {
@@ -21,8 +29,8 @@ canvas {
 
 button {
     padding: 10px;
-    margin: 8px;
-    font-size: 18px;
+    margin: 5px;
+    font-size: 16px;
     background-color: black;
     color: white;
     border: none;
