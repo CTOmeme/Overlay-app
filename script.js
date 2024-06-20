@@ -147,12 +147,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     downloadButton.addEventListener('click', () => {
         draw(); // Ensure the canvas is fully drawn before downloading
-        const dataUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = 'profile-photo.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        canvas.toBlob(function(blob) {
+            saveAs(blob, 'profile-photo.png');
+        });
     });
 });
