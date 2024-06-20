@@ -61,8 +61,8 @@ upload.addEventListener('change', (e) => {
 canvas.addEventListener('mousedown', startDragging);
 canvas.addEventListener('mousemove', drag);
 canvas.addEventListener('mouseup', stopDragging);
-canvas.addEventListener('touchstart', startDragging, { passive: true });
-canvas.addEventListener('touchmove', drag, { passive: true });
+canvas.addEventListener('touchstart', startDragging, { passive: false });
+canvas.addEventListener('touchmove', drag, { passive: false });
 canvas.addEventListener('touchend', stopDragging);
 
 function getCoordinates(e) {
@@ -73,6 +73,7 @@ function getCoordinates(e) {
 }
 
 function startDragging(e) {
+    e.preventDefault(); // Prevent default touch behavior
     const { x, y } = getCoordinates(e);
     if (x >= overlayX && x <= overlayX + overlayWidth && y >= overlayY && y <= overlayY + overlayHeight) {
         dragging = true;
@@ -81,6 +82,7 @@ function startDragging(e) {
 
 function drag(e) {
     if (dragging) {
+        e.preventDefault(); // Prevent default touch behavior
         const { x, y } = getCoordinates(e);
         overlayX = x - overlayWidth / 2;
         overlayY = y - overlayHeight / 2;
