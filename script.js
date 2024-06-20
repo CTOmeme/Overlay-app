@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
         if (userImage.src) {
             const aspectRatio = userImage.width / userImage.height;
             let drawWidth, drawHeight;
@@ -35,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const offsetY = (400 - drawHeight) / 2;
             ctx.drawImage(userImage, offsetX, offsetY, drawWidth, drawHeight);
         }
-        ctx.save();
         if (flipped) {
             ctx.translate(overlayX + overlayWidth / 2, overlayY + overlayHeight / 2);
             ctx.scale(-1, 1);
@@ -148,7 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadButton.addEventListener('click', () => {
         draw(); // Ensure the canvas is fully drawn before downloading
         canvas.toBlob(function(blob) {
-            saveAs(blob, 'profile-photo.png');
-        });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'profile-photo.png';
+            a.click();
+            URL.revokeObjectURL(url);
+        }, 'image/png');
     });
 });
