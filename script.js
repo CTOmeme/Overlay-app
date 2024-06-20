@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let overlayWidth = 100, overlayHeight = 100;
     let dragging = false;
     let flipped = false;
+    let pinchStartDistance = 0;
+    let initialOverlayWidth = 100;
+    let initialOverlayHeight = 100;
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.addEventListener('mousedown', startDragging);
     canvas.addEventListener('mousemove', drag);
     canvas.addEventListener('mouseup', stopDragging);
-    canvas.addEventListener('touchstart', startDragging, { passive: false });
-    canvas.addEventListener('touchmove', drag, { passive: false });
+    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
     canvas.addEventListener('touchend', stopDragging);
 
     function getCoordinates(e) {
@@ -93,6 +96,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function stopDragging() {
         dragging = false;
+        pinchStartDistance = 0; // Reset pinch distance
+    }
+
+    function handleTouchStart(e) {
+        if (e.touches.length === 2) {
+            pinchStartDistance = getPinchDistance(e.touches);
+            initialOverlayWidth = overlayWidth;
+            initialOverlayHeight = overlayHeight;
+        } else {
+            startDragging(e);
+        }
+    }
+
+    function handleTouchMove(e) {
+        if (e.touches.length === 2) {
+            e.preventDefault(); // Prevent default touch behavior
+            const currentDistance = getPinchDistance(e.touches);
+            const scale = currentDistance / pinchStartDistance;
+            overlayWidth = initialOverlayWidth * scale;
+            overlayHeight = initialOverlayHeight * scale;
+            draw();
+        } else {
+            drag(e);
+        }
+    }
+
+    function getPinchDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     flipButton.addEventListener('click', () => {
