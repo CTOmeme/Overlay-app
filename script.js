@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
         if (userImage.src) {
             const aspectRatio = userImage.width / userImage.height;
             let drawWidth, drawHeight;
@@ -36,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const offsetY = (400 - drawHeight) / 2;
             ctx.drawImage(userImage, offsetX, offsetY, drawWidth, drawHeight);
         }
+        ctx.save();
         if (flipped) {
             ctx.translate(overlayX + overlayWidth / 2, overlayY + overlayHeight / 2);
             ctx.scale(-1, 1);
@@ -147,7 +147,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     downloadButton.addEventListener('click', () => {
         draw(); // Ensure the canvas is fully drawn before downloading
-        canvas.toBlob(function(blob) {
+
+        // Create a temporary canvas to crop the image to the original aspect ratio
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        const aspectRatio = userImage.width / userImage.height;
+        let cropWidth, cropHeight;
+
+        if (aspectRatio > 1) {
+            cropWidth = canvas.width;
+            cropHeight = canvas.width / aspectRatio;
+        } else {
+            cropHeight = canvas.height;
+            cropWidth = canvas.height * aspectRatio;
+        }
+
+        tempCanvas.width = cropWidth;
+        tempCanvas.height = cropHeight;
+
+        tempCtx.drawImage(canvas, (canvas.width - cropWidth) / 2, (canvas.height - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+
+        tempCanvas.toBlob(function(blob) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
