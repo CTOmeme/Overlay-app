@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const reader = new FileReader();
             reader.onload = (event) => {
                 userImage = new Image();
-                userImage.crossOrigin = "anonymous"; // Enable CORS for the user image
                 userImage.onload = () => {
                     overlayX = (canvas.width - overlayWidth) / 2;
                     overlayY = (canvas.height - overlayHeight) / 2;
@@ -102,82 +101,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleTouchStart(e) {
-        if (e.touches.length === 2) {
-            pinchStartDistance = getPinchDistance(e.touches);
-            initialOverlayWidth = overlayWidth;
-            initialOverlayHeight = overlayHeight;
-        } else {
-            startDragging(e);
-        }
-    }
-
-    function handleTouchMove(e) {
-        if (e.touches.length === 2) {
-            e.preventDefault(); // Prevent default touch behavior
-            const currentDistance = getPinchDistance(e.touches);
-            const scale = currentDistance / pinchStartDistance;
-            overlayWidth = initialOverlayWidth * scale;
-            overlayHeight = initialOverlayHeight * scale;
-            draw();
-        } else {
-            drag(e);
-        }
-    }
-
-    function getPinchDistance(touches) {
-        const dx = touches[0].clientX - touches[1].clientX;
-        const dy = touches[0].clientY - touches[1].clientY;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    flipButton.addEventListener('click', () => {
-        flipped = !flipped;
-        draw();
-    });
-
-    increaseSizeButton.addEventListener('click', () => {
-        overlayWidth += 10;
-        overlayHeight += 10;
-        draw();
-    });
-
-    decreaseSizeButton.addEventListener('click', () => {
-        overlayWidth = Math.max(10, overlayWidth - 10);
-        overlayHeight = Math.max(10, overlayHeight - 10);
-        draw();
-    });
-
-    downloadButton.addEventListener('click', () => {
-        draw(); // Ensure the canvas is fully drawn before downloading
-
-        // Create a temporary canvas to crop the image to the original aspect ratio
-        const tempCanvas = document.createElement('canvas');
-        const tempCtx = tempCanvas.getContext('2d');
-        const aspectRatio = userImage.width / userImage.height;
-        let cropWidth, cropHeight;
-
-        if (aspectRatio > 1) {
-            cropWidth = canvas.width;
-            cropHeight = canvas.width / aspectRatio;
-        } else {
-            cropHeight = canvas.height;
-            cropWidth = canvas.height * aspectRatio;
-        }
-
-        tempCanvas.width = cropWidth;
-        tempCanvas.height = cropHeight;
-
-        tempCtx.drawImage(canvas, (canvas.width - cropWidth) / 2, (canvas.height - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
-
-        const dataURL = tempCanvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataURL;
-        a.download = 'profile-photo.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        // Show the message after download
-        message.style.display = 'flex';
-    });
-});
+        if (e.t
