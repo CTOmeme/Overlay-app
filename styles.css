@@ -35,7 +35,6 @@ button, .custom-file-upload {
     border-radius: 8px; /* Rounded corners for buttons */
     display: inline-block;
     text-align: center;
-    width: 100px; /* Set a fixed width for alignment */
 }
 
 button:hover, .custom-file-upload:hover {
@@ -53,20 +52,16 @@ input[type="file"] {
 
 #message {
     margin-top: 20px;
-    font-size: 24px; /* Increased text size to 24px */
+    font-size: 18px;
     font-family: 'Montserrat', sans-serif;
     color: black;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Align items with space between */
-    gap: 10px; /* Added gap between elements */
+    justify-content: center;
 }
 
-#message-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px; /* Fixed width for the text container */
+#message span {
+    margin: 0 10px;
 }
 
 #message a {
@@ -75,8 +70,8 @@ input[type="file"] {
 }
 
 .gif {
-    height: 100px; /* Adjust height to match the top of the buttons and bottom of the text */
-    width: 100px; /* Set a fixed width for alignment */
+    width: 50px;
+    height: 50px;
 }
 
 @media (max-width: 600px) {
@@ -84,7 +79,6 @@ input[type="file"] {
         padding: 8px;
         margin: 3px;
         font-size: 14px;
-        width: auto; /* Adjust width for smaller screens */
     }
 
     canvas {
@@ -93,18 +87,11 @@ input[type="file"] {
     }
 
     #message {
-        font-size: 20px; /* Adjusted for smaller screens */
-        flex-direction: column; /* Stack elements vertically on smaller screens */
-        align-items: center;
-    }
-
-    #message-text {
-        width: auto; /* Adjust width for smaller screens */
-        text-align: center; /* Center text for smaller screens */
+        font-size: 14px;
     }
 
     .gif {
-        height: 80px; /* Adjust height for smaller screens */
-        width: 80px; /* Adjust width for smaller screens */
+        width: 40px;
+        height: 40px;
     }
 }
