@@ -169,22 +169,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tempCtx.drawImage(canvas, (canvas.width - cropWidth) / 2, (canvas.height - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
 
-        tempCanvas.toBlob(function(blob) {
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(blob, 'profile-photo.png');
-            } else {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'profile-photo.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
+        const dataURL = tempCanvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'profile-photo.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
 
-            // Show the message after download
-            message.style.display = 'flex';
-        }, 'image/png');
+        // Show the message after download
+        message.style.display = 'flex';
     });
 });
