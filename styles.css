@@ -50,30 +50,6 @@ input[type="file"] {
     cursor: pointer;
 }
 
-#message {
-    margin-top: 20px;
-    font-size: 18px;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#message span {
-    margin: 0 10px;
-}
-
-#message a {
-    color: black;
-    text-decoration: underline;
-}
-
-.gif {
-    width: 100px; /* Increased width of the GIF */
-    height: 100px; /* Increased height of the GIF */
-}
-
 @media (max-width: 600px) {
     button, .custom-file-upload {
         padding: 8px;
@@ -84,14 +60,5 @@ input[type="file"] {
     canvas {
         width: 90%;
         height: auto;
-    }
-
-    #message {
-        font-size: 14px;
-    }
-
-    .gif {
-        width: 80px; /* Adjust width for smaller screens */
-        height: 80px; /* Adjust height for smaller screens */
     }
 }
