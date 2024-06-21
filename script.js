@@ -168,15 +168,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tempCtx.drawImage(canvas, (canvas.width - cropWidth) / 2, (canvas.height - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
 
-        const dataURL = tempCanvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataURL;
-        a.download = 'profile-photo.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        tempCanvas.toBlob(function(blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'profile-photo.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
 
-        // Show the message after download
-        message.style.display = 'flex';
+            // Show the message after download
+            message.style.display = 'flex';
+        }, 'image/png');
     });
 });
