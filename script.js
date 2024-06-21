@@ -173,7 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const a = document.createElement('a');
             a.href = url;
             a.download = 'profile-photo.png';
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             URL.revokeObjectURL(url);
 
             // Show the message after download
