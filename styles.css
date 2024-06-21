@@ -52,7 +52,7 @@ input[type="file"] {
 
 #message {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 24px; /* Increased text size to 24px */
     font-family: 'Montserrat', sans-serif;
     color: black;
     display: flex;
@@ -70,8 +70,8 @@ input[type="file"] {
 }
 
 .gif {
-    width: 50px;
-    height: 50px;
+    height: 100px; /* Adjust height to match the top of the buttons and bottom of the text */
+    margin-top: 5px; /* Align with the buttons */
 }
 
 @media (max-width: 600px) {
@@ -87,11 +87,11 @@ input[type="file"] {
     }
 
     #message {
-        font-size: 14px;
+        font-size: 20px; /* Adjusted for smaller screens */
     }
 
     .gif {
-        width: 40px;
-        height: 40px;
+        height: 80px; /* Adjust height for smaller screens */
+        margin-top: 3px;
     }
 }
