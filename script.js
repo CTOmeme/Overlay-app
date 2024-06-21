@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const reader = new FileReader();
             reader.onload = (event) => {
                 userImage = new Image();
+                userImage.crossOrigin = "anonymous"; // Enable CORS for the user image
                 userImage.onload = () => {
                     overlayX = (canvas.width - overlayWidth) / 2;
                     overlayY = (canvas.height - overlayHeight) / 2;
