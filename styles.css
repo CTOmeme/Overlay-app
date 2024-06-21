@@ -35,6 +35,7 @@ button, .custom-file-upload {
     border-radius: 8px; /* Rounded corners for buttons */
     display: inline-block;
     text-align: center;
+    width: 100px; /* Set a fixed width for alignment */
 }
 
 button:hover, .custom-file-upload:hover {
@@ -57,14 +58,15 @@ input[type="file"] {
     color: black;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; /* Align items with space between */
+    gap: 10px; /* Added gap between elements */
 }
 
 #message-text {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 10px;
+    width: 200px; /* Fixed width for the text container */
 }
 
 #message a {
@@ -74,6 +76,7 @@ input[type="file"] {
 
 .gif {
     height: 100px; /* Adjust height to match the top of the buttons and bottom of the text */
+    width: 100px; /* Set a fixed width for alignment */
 }
 
 @media (max-width: 600px) {
@@ -81,6 +84,7 @@ input[type="file"] {
         padding: 8px;
         margin: 3px;
         font-size: 14px;
+        width: auto; /* Adjust width for smaller screens */
     }
 
     canvas {
@@ -90,9 +94,17 @@ input[type="file"] {
 
     #message {
         font-size: 20px; /* Adjusted for smaller screens */
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+        align-items: center;
+    }
+
+    #message-text {
+        width: auto; /* Adjust width for smaller screens */
+        text-align: center; /* Center text for smaller screens */
     }
 
     .gif {
         height: 80px; /* Adjust height for smaller screens */
+        width: 80px; /* Adjust width for smaller screens */
     }
 }
