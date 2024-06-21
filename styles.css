@@ -35,6 +35,7 @@ button, .custom-file-upload {
     border-radius: 8px; /* Rounded corners for buttons */
     display: inline-block;
     text-align: center;
+    width: 100px; /* Fixed width for alignment */
 }
 
 button:hover, .custom-file-upload:hover {
@@ -52,7 +53,7 @@ input[type="file"] {
 
 #message {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 18px; /* Adjusted text size */
     font-family: 'Montserrat', sans-serif;
     color: black;
     display: flex;
@@ -60,7 +61,10 @@ input[type="file"] {
     justify-content: center;
 }
 
-#message span {
+#message-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 10px;
 }
 
@@ -70,8 +74,8 @@ input[type="file"] {
 }
 
 .gif {
-    width: 100px; /* Increased width of the GIF */
-    height: 100px; /* Increased height of the GIF */
+    width: 100px; /* Adjust width to match the buttons */
+    height: 100px; /* Adjust height to match the buttons */
 }
 
 @media (max-width: 600px) {
@@ -79,6 +83,7 @@ input[type="file"] {
         padding: 8px;
         margin: 3px;
         font-size: 14px;
+        width: auto; /* Adjust width for smaller screens */
     }
 
     canvas {
@@ -87,11 +92,18 @@ input[type="file"] {
     }
 
     #message {
-        font-size: 14px;
+        font-size: 14px; /* Adjusted for smaller screens */
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+        align-items: center;
+    }
+
+    #message-text {
+        width: auto; /* Adjust width for smaller screens */
+        text-align: center; /* Center text for smaller screens */
     }
 
     .gif {
-        width: 80px; /* Adjust width for smaller screens */
         height: 80px; /* Adjust height for smaller screens */
+        width: 80px; /* Adjust width for smaller screens */
     }
 }
