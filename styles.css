@@ -24,7 +24,7 @@ canvas {
 button, .custom-file-upload {
     padding: 10px;
     margin: 5px;
-    font-size: 18px;
+    font-size: 16px;
     background-color: black;
     color: white;
     border: none;
@@ -50,6 +50,30 @@ input[type="file"] {
     cursor: pointer;
 }
 
+#message {
+    margin-top: 20px;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#message span {
+    margin: 0 10px;
+}
+
+#message a {
+    color: black;
+    text-decoration: underline;
+}
+
+.gif {
+    width: 50px;
+    height: 50px;
+}
+
 @media (max-width: 600px) {
     button, .custom-file-upload {
         padding: 8px;
@@ -60,5 +84,14 @@ input[type="file"] {
     canvas {
         width: 90%;
         height: auto;
+    }
+
+    #message {
+        font-size: 14px;
+    }
+
+    .gif {
+        width: 40px;
+        height: 40px;
     }
 }
