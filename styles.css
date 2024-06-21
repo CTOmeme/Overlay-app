@@ -58,10 +58,10 @@ input[type="file"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px; /* Added gap between elements */
 }
 
 #message span {
-    margin: 0 10px;
     display: flex;
     align-items: center; /* Align text vertically */
 }
@@ -73,7 +73,6 @@ input[type="file"] {
 
 .gif {
     height: 100px; /* Adjust height to match the top of the buttons and bottom of the text */
-    margin-top: -20px; /* Adjust the alignment relative to the text */
 }
 
 @media (max-width: 600px) {
@@ -94,6 +93,5 @@ input[type="file"] {
 
     .gif {
         height: 80px; /* Adjust height for smaller screens */
-        margin-top: -20px; /* Adjust the alignment relative to the text for smaller screens */
     }
 }
