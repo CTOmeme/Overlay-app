@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const increaseSizeButton = document.getElementById('increaseSize');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const downloadButton = document.getElementById('download');
-    const message = document.getElementById('message');
 
     let userImage = new Image();
     let overlayImage = new Image();
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const reader = new FileReader();
             reader.onload = (event) => {
                 userImage = new Image();
-                userImage.crossOrigin = "anonymous"; // Enable CORS for the user image
                 userImage.onload = () => {
                     overlayX = (canvas.width - overlayWidth) / 2;
                     overlayY = (canvas.height - overlayHeight) / 2;
@@ -170,24 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
         tempCtx.drawImage(canvas, (canvas.width - cropWidth) / 2, (canvas.height - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
 
         tempCanvas.toBlob(function(blob) {
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(blob, 'profile-photo.png');
-            } else {
-                const dataURL = tempCanvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                if (typeof a.download === 'undefined') {
-                    window.open(dataURL);
-                } else {
-                    a.href = dataURL;
-                    a.download = 'profile-photo.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
-            }
-
-            // Show the message after download
-            message.style.display = 'flex';
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'profile-photo.png';
+            a.click();
+            URL.revokeObjectURL(url);
         }, 'image/png');
     });
 });
