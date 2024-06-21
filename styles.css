@@ -58,12 +58,13 @@ input[type="file"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Added gap between elements */
 }
 
-#message span {
+#message-text {
     display: flex;
-    align-items: center; /* Align text vertically */
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
 }
 
 #message a {
