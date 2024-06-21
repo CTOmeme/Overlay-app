@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const increaseSizeButton = document.getElementById('increaseSize');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const downloadButton = document.getElementById('download');
+    const message = document.getElementById('message');
 
     let userImage = new Image();
     let overlayImage = new Image();
@@ -174,6 +175,9 @@ document.addEventListener('DOMContentLoaded', function() {
             a.download = 'profile-photo.png';
             a.click();
             URL.revokeObjectURL(url);
+
+            // Show the message after download
+            message.style.display = 'flex';
         }, 'image/png');
     });
 });
