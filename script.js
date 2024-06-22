@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const increaseSizeButton = document.getElementById('increaseSize');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const downloadButton = document.getElementById('download');
+    const downloadLink = document.createElement('a');
     const message = document.getElementById('message');
+
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
 
     let userImage = new Image();
     let overlayImage = new Image();
@@ -171,12 +175,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tempCanvas.toBlob(function(blob) {
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'profile-photo.png';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            downloadLink.href = url;
+            downloadLink.download = 'profile-photo.png';
+            downloadLink.click();
             URL.revokeObjectURL(url);
 
             // Show the message after download
