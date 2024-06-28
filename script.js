@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const increaseSizeButton = document.getElementById('increaseSize');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const downloadButton = document.getElementById('download');
+    const downloadLink = document.createElement('a');
     const message = document.getElementById('message');
+
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
 
     let userImage = new Image();
     let overlayImage = new Image();
@@ -67,9 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.addEventListener('mousedown', startDragging);
     canvas.addEventListener('mousemove', drag);
     canvas.addEventListener('mouseup', stopDragging);
+    canvas.addEventListener('mouseleave', stopDragging);
     canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
     canvas.addEventListener('touchend', stopDragging);
+    canvas.addEventListener('touchcancel', stopDragging);
 
     function getCoordinates(e) {
         const rect = canvas.getBoundingClientRect();
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overlayWidth = initialOverlayWidth * scale;
             overlayHeight = initialOverlayHeight * scale;
             draw();
-        } else {
+        } else if (e.touches.length === 1) {
             drag(e);
         }
     }
@@ -170,21 +176,11 @@ document.addEventListener('DOMContentLoaded', function() {
         tempCtx.drawImage(canvas, (canvas.width - cropWidth) / 2, (canvas.height - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
 
         tempCanvas.toBlob(function(blob) {
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(blob, 'profile-photo.png');
-            } else {
-                const dataURL = tempCanvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                if (typeof a.download === 'undefined') {
-                    window.open(dataURL);
-                } else {
-                    a.href = dataURL;
-                    a.download = 'profile-photo.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
-            }
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = 'profile-photo.png';
+            downloadLink.click();
+            URL.revokeObjectURL(url);
 
             // Show the message after download
             message.style.display = 'flex';
