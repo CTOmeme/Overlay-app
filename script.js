@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let userImage = new Image();
     let overlayImage = new Image();
     overlayImage.crossOrigin = "anonymous"; // Enable CORS for the overlay image
-    overlayImage.src = 'https://static.wixstatic.com/media/e88c08_2e312dab6ac74438bf017f41a1b72c72~mv2.png';
+    overlayImage.src = 'https://static.wixstatic.com/media/e88c08_ddb4644292fb4097abc6c6c1bce5cf54~mv2.png';
     let overlayX = 0, overlayY = 0;
     let overlayWidth = 100, overlayHeight = 100;
     let dragging = false;
